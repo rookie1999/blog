@@ -24,6 +24,10 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //设置请求编码
+        req.setCharacterEncoding("utf-8");
+        //设置响应编码
+        resp.setContentType("text/html;charset=utf-8");
         String uname = req.getParameter("uname");
         String pwd = req.getParameter("pwd");
         ApplicationContext applicationContext = SpringContext.getApplicationContext();

@@ -18,7 +18,6 @@ public class RegisterServiceImpl implements IRegisterService {
         ApplicationContext applicationContext = SpringContext.getApplicationContext();
         UserDao loginDao = (UserDao) applicationContext.getBean("userDao");
         UserInfo user = loginDao.addUser(username, password, email);
-        resp.setContentType("text/html;charset=utf-8");
         if (user == null) { //用户已存在
             resp.getWriter().write("注册失败，用户名已存在<br />");
             resp.getWriter().write("3秒后回到初始页面...");

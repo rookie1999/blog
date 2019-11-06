@@ -1,22 +1,24 @@
 package cn.zhanguozhi.domain;
 
-import cn.zhanguozhi.utils.StatusCode;
+
 
 public class UserInfo {
     private int id;
     private String username;
     private String password;
     private String email;
+    private String lastLoginTime;
     //private StatusCode status; //状态码
 
     public UserInfo() {
     }
 
-    public UserInfo(int id, String username, String password, String email) {
+    public UserInfo(int id, String username, String password, String email, String date) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.lastLoginTime = date;
     }
 
     public int getId() {
@@ -51,8 +53,11 @@ public class UserInfo {
         this.email = email;
     }
 
+    public String getLastLoginTime() {
+        return lastLoginTime;
+    }
 
-
-
-
+    public void setLastLoginTime(String lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
 }

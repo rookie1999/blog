@@ -10,6 +10,19 @@
         document.welcome.submit();
     }
 </script>
+<%
+    Cookie[] cookies = request.getCookies();
+    if (cookies != null) {
+        for (Cookie c : cookies) {
+            if ("uname".equals(c.getName()) && !c.getValue().equals("")) {//如果为null  是注销登录的
+                response.sendRedirect("/myBlog/welcomepage.jsp");
+                System.out.println(c.getValue());
+            }
+            System.out.println(c.getName() + ":" + c.getValue());
+        }
+    }
+
+%>
 <script>
     function regist() {
         document.welcome.action="register.jsp";

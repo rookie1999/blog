@@ -13,4 +13,6 @@ public interface UserDao {
     UserInfo updateUserPassword(String username, String password);
     //更改账号邮箱
     UserInfo updateUserEmail(String username, String email);
+    //更改账号最后一次登录时间
+    UserInfo updateUserLastLoginTime(String username, String password);
 }

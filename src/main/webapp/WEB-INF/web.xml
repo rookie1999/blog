@@ -19,4 +19,12 @@
     <servlet-name>registerServlet</servlet-name>
     <url-pattern>/register</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>logoutServlet</servlet-name>
+    <servlet-class>cn.zhanguozhi.controller.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>logoutServlet</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
 </web-app>

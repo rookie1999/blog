@@ -8,6 +8,7 @@ import cn.zhanguozhi.utils.SpringContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -23,15 +24,18 @@ public class LoginServiceImpl implements ILoginService {
     public UserVo checkUserLogin(String username, String password, HttpServletResponse resp) throws IOException {
         ApplicationContext applicationContext = SpringContext.getApplicationContext();
         UserDao loginDao = (UserDao) applicationContext.getBean("userDao");
-        UserInfo user = loginDao.getUserByName(username);
-        resp.setContentType("text/html;charset=utf-8");
+        UserInfo user = loginDao.updateUserLastLoginTime(username, password);
         if (user == null || !(user.getPassword().equals(password))) { //没有该用户或者是密码错误
             resp.getWriter().write("登录失败，用户名或密码错误<br />");
             resp.getWriter().write("3秒后回到初始页面...");
             resp.setHeader("refresh", "3;/myBlog/index.jsp");
-        } else {
+        } else {    //用户存在 可以正常登录
             resp.getWriter().write("登录成功，页面将在3秒后跳转...");
             resp.setHeader("refresh", "3;/myBlog/welcomepage.jsp");
+
+            //设置cookie完成一次会话免密登录
+            Cookie c = new Cookie("uname",username);
+            resp.addCookie(c);
             UserVo userVo = new UserVo();
             userVo.setUsername(user.getUsername());
             userVo.setPassword(user.getPassword());

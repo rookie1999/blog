@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Repository("userDao")
 public class UserDaoImpl implements UserDao {
@@ -28,9 +30,8 @@ public class UserDaoImpl implements UserDao {
             int i = preparedStatement.executeUpdate();
             System.out.println(i);
             if (i == 1) {
-                userInfo = new UserInfo();
-                userInfo.setUsername(username);
-                userInfo.setPassword(password);
+                userInfo =  getUserByName(username);
+                return userInfo;
             } else {
                 System.out.println("添加失败");
             }
@@ -74,8 +75,10 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(1, username);
             ResultSet result = preparedStatement.executeQuery();
             if (result.next()) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                String date = sdf.format(result.getTimestamp("last_login_time"));
                 userInfo = new UserInfo(result.getInt("id"), result.getString("username"),
-                        result.getString("password"), result.getString("email"));
+                        result.getString("password"), result.getString("email"), date);
             }
 
         } catch (SQLException e) {
@@ -124,6 +127,30 @@ public class UserDaoImpl implements UserDao {
             }
         } catch (SQLException e) {
             System.out.println("修改邮箱失败");
+        } finally {
+            DBConnector.close(conn);
+        }
+        return null;
+    }
+
+
+    @Override
+    public UserInfo updateUserLastLoginTime(String username, String password) {
+        Connection conn = DBConnector.getConnection();
+        String sql = "update user set last_login_time = ? where username = ? and password = ?";
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setTimestamp(1, new java.sql.Timestamp(new Date().getTime()));
+            preparedStatement.setString(2, username);
+            preparedStatement.setString(3, password);
+            int i = preparedStatement.executeUpdate();
+            if (i == 1) {
+                return getUserByName(username);
+            } else {
+                System.out.println("修改最后一次登录时间失败");
+            }
+        } catch (Exception e) {
+            System.out.println("修改最后一次登录时间失败");
         } finally {
             DBConnector.close(conn);
         }
