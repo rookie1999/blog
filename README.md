@@ -19,6 +19,7 @@ change:
 3.user表增加了last_login_time字段 对UserInfo对象也修改 增加了String lastLoginTime属性
 
 #@date 2019.11.8
+
 change:
 1.增加了欢迎页的页面计数功能，该计数是所有用户的历史总计数之和
 2.移除了原来的xml配置功能，采用了基于配置类的Spring配置 
