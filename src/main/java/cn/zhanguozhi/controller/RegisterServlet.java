@@ -2,8 +2,8 @@ package cn.zhanguozhi.controller;
 
 import cn.zhanguozhi.domain.UserVo;
 import cn.zhanguozhi.service.IRegisterService;
-import cn.zhanguozhi.utils.SpringContext;
-import org.springframework.context.ApplicationContext;
+import cn.zhanguozhi.utils.SpringConfig;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +26,7 @@ public class RegisterServlet extends HttpServlet {
         String uname = req.getParameter("uname");
         String pwd = req.getParameter("pwd");
         String email = req.getParameter("email");
-        ApplicationContext applicationContext = SpringContext.getApplicationContext();
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
         IRegisterService registerService = (IRegisterService) applicationContext.getBean("registerService");
         UserVo uservo = registerService.registerNewAccount(uname, pwd, email, resp);
     }

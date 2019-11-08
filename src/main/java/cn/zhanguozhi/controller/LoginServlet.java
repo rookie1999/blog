@@ -2,13 +2,14 @@ package cn.zhanguozhi.controller;
 
 import cn.zhanguozhi.domain.UserVo;
 import cn.zhanguozhi.service.ILoginService;
-import cn.zhanguozhi.utils.SpringContext;
-import org.springframework.context.ApplicationContext;
+import cn.zhanguozhi.utils.SpringConfig;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
@@ -30,7 +31,10 @@ public class LoginServlet extends HttpServlet {
         resp.setContentType("text/html;charset=utf-8");
         String uname = req.getParameter("uname");
         String pwd = req.getParameter("pwd");
-        ApplicationContext applicationContext = SpringContext.getApplicationContext();
+        //设置session的参数
+        HttpSession session = req.getSession();
+        session.setAttribute("uname", uname);
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
         ILoginService loginService = (ILoginService) applicationContext.getBean("loginService");
         UserVo user = loginService.checkUserLogin(uname, pwd, resp);
 

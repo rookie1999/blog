@@ -27,4 +27,13 @@
     <servlet-name>logoutServlet</servlet-name>
     <url-pattern>/logout</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>configServlet</servlet-name>
+    <servlet-class>cn.zhanguozhi.controller.ConfigServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>configServlet</servlet-name>
+    <url-pattern>/config</url-pattern>
+  </servlet-mapping>
 </web-app>

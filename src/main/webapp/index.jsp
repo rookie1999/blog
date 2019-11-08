@@ -16,9 +16,7 @@
         for (Cookie c : cookies) {
             if ("uname".equals(c.getName()) && !c.getValue().equals("")) {//如果为null  是注销登录的
                 response.sendRedirect("/myBlog/welcomepage.jsp");
-                System.out.println(c.getValue());
             }
-            System.out.println(c.getName() + ":" + c.getValue());
         }
     }
 

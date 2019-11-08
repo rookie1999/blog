@@ -4,8 +4,8 @@ import cn.zhanguozhi.dao.UserDao;
 import cn.zhanguozhi.domain.UserInfo;
 import cn.zhanguozhi.domain.UserVo;
 import cn.zhanguozhi.service.IRegisterService;
-import cn.zhanguozhi.utils.SpringContext;
-import org.springframework.context.ApplicationContext;
+import cn.zhanguozhi.utils.SpringConfig;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +15,7 @@ import java.io.IOException;
 public class RegisterServiceImpl implements IRegisterService {
     @Override
     public UserVo registerNewAccount(String username, String password, String email, HttpServletResponse resp) throws IOException {
-        ApplicationContext applicationContext = SpringContext.getApplicationContext();
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
         UserDao loginDao = (UserDao) applicationContext.getBean("userDao");
         UserInfo user = loginDao.addUser(username, password, email);
         if (user == null) { //用户已存在

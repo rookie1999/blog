@@ -12,18 +12,14 @@
 </head>
 <body>
     <%
-        String s = "您";
-        Cookie[] cookies = request.getCookies();
-        Cookie cookie = null;
-        if (cookies != null) {
-            for(Cookie c : cookies) {
-                if ("uname".equals(c.getName())) {
-                    cookie = c;
-                    s = c.getValue();
-                    break;
-                }
-            }
+        String s = (String) session.getAttribute("uname");
+        if (s == null) {
+            response.sendRedirect("/myBlog/login.jsp");
         }
+        ServletContext servletContext = getServletConfig().getServletContext();
+        int num = Integer.parseInt((String) servletContext.getAttribute("count"));
+        num++;
+        servletContext.setAttribute("count", num + "");
     %>
     <script>
         function logout() {
@@ -33,8 +29,8 @@
     </script>
     <h3>My Blog Space</h3>
     <hr />
-    <b>登录成功</b>
     <h5>&nbsp;&nbsp;欢迎<%= s %></h5>
+    <p>当前网页浏览次数为：<%=num%></p>
     <form action="" name="logout1" method="get" >
     <input type="submit" onclick="logout()" alian="right" value="注销"/>
     </form>

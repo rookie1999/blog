@@ -2,6 +2,7 @@ package cn.zhanguozhi.dao.impl;
 
 import cn.zhanguozhi.dao.UserDao;
 import cn.zhanguozhi.domain.UserInfo;
+import cn.zhanguozhi.utils.DBConnector;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -17,7 +18,6 @@ public class UserDaoImpl implements UserDao {
     public UserInfo addUser(String username, String password, String email) {
         Connection conn = DBConnector.getConnection();
         if (getUserByName(username) != null) {
-            System.out.println("用户已存在");
             return null;
         }
         String sql = "insert into user(username, password, email) values (?, ?, ?);";

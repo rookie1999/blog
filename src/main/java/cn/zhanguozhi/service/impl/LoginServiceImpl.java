@@ -4,8 +4,8 @@ import cn.zhanguozhi.dao.UserDao;
 import cn.zhanguozhi.domain.UserInfo;
 import cn.zhanguozhi.domain.UserVo;
 import cn.zhanguozhi.service.ILoginService;
-import cn.zhanguozhi.utils.SpringContext;
-import org.springframework.context.ApplicationContext;
+import cn.zhanguozhi.utils.SpringConfig;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
@@ -22,7 +22,7 @@ import java.io.IOException;
 public class LoginServiceImpl implements ILoginService {
     @Override
     public UserVo checkUserLogin(String username, String password, HttpServletResponse resp) throws IOException {
-        ApplicationContext applicationContext = SpringContext.getApplicationContext();
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
         UserDao loginDao = (UserDao) applicationContext.getBean("userDao");
         UserInfo user = loginDao.updateUserLastLoginTime(username, password);
         if (user == null || !(user.getPassword().equals(password))) { //没有该用户或者是密码错误
