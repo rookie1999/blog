@@ -1,6 +1,9 @@
 <%@page contentType="text/html;charset=UTF-8" language="java" %>
 <%@page isELIgnored="false" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:if test="${empty user}">
+	<% response.sendRedirect("/myBlog/index.jsp");%>
+</c:if>
 <html>
 	<head>
 		<title>Dimension</title>
@@ -8,13 +11,17 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+			#exit {
+				font-size:5px;
+			}
+		</style>
 	</head>
 	<body class="is-preload">
-		<c:if test="${empty user}">
-			<% response.sendRedirect("/myBlog/index.jsp");%>
-		</c:if>
+
+
 		<!-- Wrapper -->
-			<div id="wrapper">
+		<div id="wrapper">
 
 				<!-- Header -->
 					<header id="header">
@@ -343,6 +350,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 					<footer id="footer">
 						<p class="copyright">当前在线人数:${applicationScope.currentOnlinePeople}</p>
 						<p class="copyright">网页累计浏览次数:${applicationScope.count}</p>
+						<div id="exit" align="right"><a href="/myBlog/logout">退出</a></div>
 					</footer>
 
 			</div>

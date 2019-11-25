@@ -20,8 +20,7 @@ public class LogoutServlet extends HttpServlet {
      */
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Cookie c = new Cookie("uname", null);
-        resp.addCookie(c);
+        req.getSession().invalidate();
         resp.sendRedirect("/myBlog/index.jsp");
     }
 }
