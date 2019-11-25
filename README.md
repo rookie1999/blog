@@ -18,10 +18,22 @@ change:
 2.增加了注销功能  可以重新登录或注册
 3.user表增加了last_login_time字段 对UserInfo对象也修改 增加了String lastLoginTime属性
 
+#@date 2019.11.8
+
+change:
+1.增加了欢迎页的页面计数功能，该计数是所有用户的历史总计数之和
+2.移除了原来的xml配置功能，采用了基于配置类的Spring配置 
+  AnnotationConfigApplicationContext
+ 3.对于原来使用Cookie的用户信息记录  转用Session机制
+ 
+注意：
+ 历史总访问计数记录在/config/count.txt，但是项目自动生成一个同名文件在target中，并且程序访问的是target的文件
+ 
 expectation:
 对于cookie机制 目前只是检测uname是否存在作为依据
   想使用username+last_login_time
   通过md5加密算法存储两个相同的cookie
   每次需要登录前 先核对这两个
-  
+ 
+
   
