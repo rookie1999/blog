@@ -25,18 +25,20 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //设置请求编码
-        req.setCharacterEncoding("utf-8");
-        //设置响应编码
-        resp.setContentType("text/html;charset=utf-8");
+//        //设置请求编码
+//        req.setCharacterEncoding("utf-8");
+//        //设置响应编码
+//        resp.setContentType("text/html;charset=utf-8");
         String uname = req.getParameter("uname");
         String pwd = req.getParameter("pwd");
-        //设置session的参数
-        HttpSession session = req.getSession();
-        session.setAttribute("uname", uname);
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
         ILoginService loginService = (ILoginService) applicationContext.getBean("loginService");
         UserVo user = loginService.checkUserLogin(uname, pwd, resp);
-
+        if (user != null) {
+            req.getSession().setAttribute("user", user);
+            System.out.println(resp.getWriter());
+            resp.getWriter().write("登录成功，页面将在3秒后跳转...");
+            resp.setHeader("refresh", "3;url=/myBlog/welcomePage.jsp");
+        }
     }
 }

@@ -1,3 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>BlogSpace</title>
@@ -10,23 +13,15 @@
         document.welcome.submit();
     }
 </script>
-<%
-    Cookie[] cookies = request.getCookies();
-    if (cookies != null) {
-        for (Cookie c : cookies) {
-            if ("uname".equals(c.getName()) && !c.getValue().equals("")) {//如果为null  是注销登录的
-                response.sendRedirect("/myBlog/welcomepage.jsp");
-            }
-        }
-    }
-
-%>
 <script>
     function regist() {
         document.welcome.action="register.jsp";
         document.welcome.submit();
     }
 </script>
+<c:if test="${!(empty user) && user.username != null}">
+    <% response.sendRedirect("/myBlog/welcomePage.jsp");%>
+</c:if>
 <form action="" name="welcome" method="post">
     <button onclick="regist()" name="register">Register</button>
     <button onclick="login()" name="log in">Log in</button>

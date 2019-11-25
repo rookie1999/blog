@@ -1,10 +1,6 @@
 package cn.zhanguozhi.utils;
 
-import cn.zhanguozhi.dao.UserDao;
-import cn.zhanguozhi.service.ILoginService;
-import cn.zhanguozhi.service.IRegisterService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 

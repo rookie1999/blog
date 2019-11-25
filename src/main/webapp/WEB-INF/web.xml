@@ -3,6 +3,17 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
+  <filter>
+    <filter-name>countFilter</filter-name>
+    <filter-class>cn.zhanguozhi.filter.CountFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>countFilter</filter-name>
+    <url-pattern>/welcomePage.jsp</url-pattern>
+  </filter-mapping>
+  <listener>
+    <listener-class>cn.zhanguozhi.listener.NumberListener</listener-class>
+  </listener>
   <servlet>
     <servlet-name>loginServlet</servlet-name>
     <servlet-class>cn.zhanguozhi.controller.LoginServlet</servlet-class>
@@ -27,13 +38,8 @@
     <servlet-name>logoutServlet</servlet-name>
     <url-pattern>/logout</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>configServlet</servlet-name>
-    <servlet-class>cn.zhanguozhi.controller.ConfigServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>configServlet</servlet-name>
-    <url-pattern>/config</url-pattern>
-  </servlet-mapping>
+<!--    load-on-starup大于等于0时，web容器启动的时候进行初始化，正整数越小，初始化顺序越靠前，等于0最后-->
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
 </web-app>

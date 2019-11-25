@@ -17,7 +17,7 @@ public class DBConnector {
     private static final int MAX_CONN = 5;
     private static final int NORM_CONN = 3;
     private static int CREATE_CONN = 3;
-    private static final String url = "jdbc:mysql://localhost:3306/blog?serverTimezone=GMT%2B8&characterEncoding=utf-8 ";
+    private static final String url = "jdbc:mysql://localhost:3306/blog?serverTimezone=GMT%2B8&characterEncoding=utf-8";
 
     public static ArrayList<Connection> conns = new ArrayList<>(NORM_CONN);
 

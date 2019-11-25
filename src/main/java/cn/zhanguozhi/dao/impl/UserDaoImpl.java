@@ -144,10 +144,12 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(2, username);
             preparedStatement.setString(3, password);
             int i = preparedStatement.executeUpdate();
+            System.out.println("i=" + i);
             if (i == 1) {
                 return getUserByName(username);
             } else {
                 System.out.println("修改最后一次登录时间失败");
+                System.out.println("hh");
             }
         } catch (Exception e) {
             System.out.println("修改最后一次登录时间失败");
